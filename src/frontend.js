@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./App.css";
 
-const socket = io("http://localhost:5000"); // Connect to the backend WebSocket server
+const socket = io("http://192.168.2.88:9000"); // Connect to the backend WebSocket server
 
 const App = () => {
   const [photos, setPhotos] = useState(() => {
@@ -59,7 +59,7 @@ const App = () => {
     setNewName("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/rename", {
+      const response = await fetch("http://192.168.2.88:9000/api/rename", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const App = () => {
 
       // Refresh thumbnails by re-fetching the photos from the backend
       const updatedPhotoListResponse = await fetch(
-        "http://localhost:5000/api/photos"
+        "http://192.168.2.88:9000/api/photos"
       );
       const updatedPhotoList = await updatedPhotoListResponse.json();
       setPhotos(updatedPhotoList.photos);
@@ -84,7 +84,7 @@ const App = () => {
   const handleConfirm = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/confirm", {
+      const response = await fetch("http://192.168.2.88:9000/api/confirm", {
         method: "POST",
       });
       const data = await response.json();
@@ -102,7 +102,7 @@ const App = () => {
   const handleDelete = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/delete", {
+      const response = await fetch("http://192.168.2.88:9000/api/delete", {
         method: "DELETE",
       });
       const data = await response.json();
@@ -182,7 +182,7 @@ const App = () => {
           <div key={index} className="photo-card">
             {/* Always display the photo thumbnail */}
             <img
-              src={`http://localhost:5000/${photo}`}
+              src={`http://192.168.2.88:9000/${photo}`}
               alt={photo}
               className="photo-thumbnail"
               onClick={() => handlePhotoClick(photo)} // Open larger view
@@ -211,7 +211,7 @@ const App = () => {
         <div className="photo-viewer" onClick={closePhotoViewer}>
           <div className="photo-viewer-content">
             <img
-              src={`http://localhost:5000/${selectedPhoto}`}
+              src={`http://192.168.2.88:9000/${selectedPhoto}`}
               alt={selectedPhoto}
               className="large-photo"
             />
