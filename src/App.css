@@ -1,38 +1,227 @@
+/* General App Styling */
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  font-family: "Roboto", Arial, sans-serif;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f3f8fe, #e2edf5); /* Soft gradient background */
+  color: #333; /* Neutral text color */
+}
+
+/* Loader Styling */
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: #007bff;
+  background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* Taskbar Styling */
+.taskbar {
+  background-color: #0056b3;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.taskbar h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.taskbar nav a {
+  margin-left: 30px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.taskbar nav a:hover {
+  text-decoration: underline;
+  color: #ffdf6c;
+}
+
+/* Photo List Styling */
+.photo-list {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 20px;
+  padding: 15px;
+}
+
+/* Photo Thumbnail Styling */
+.photo-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer; /* Make it clear that thumbnails are clickable */
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Photo Card Styling */
+.photo-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between;
+}
+
+.photo-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.photo-card p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+  color: #34495e;
+}
+
+.photo-card input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.photo-card button {
+  padding: 6px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.photo-card button:hover {
+  background-color: #45a049;
+  transform: scale(1.03);
+}
+
+/* Photo Viewer Modal Styling */
+.photo-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* Black semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  cursor: pointer; /* Close modal when clicking on background */
+}
+
+.photo-viewer-content {
+  position: relative;
+}
+
+.large-photo {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Button Group Styling */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.button-group button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Confirm Button Styling */
+.button-group .confirm-button {
+  background-color: #0056b3;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.button-group .confirm-button:hover {
+  background-color: #003f7f;
+  transform: scale(1.05);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Print Button Styling */
+.button-group .print-button {
+  background-color: #ffdf6c;
+  color: #333;
+}
+
+.button-group .print-button:hover {
+  background-color: #ffc344;
+  transform: scale(1.05);
+}
+
+/* Delete Button Styling */
+.button-group .delete-button {
+  background-color: #ff4d4d;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-group .delete-button:hover {
+  background-color: #d93636;
+  transform: scale(1.05);
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 15px 0;
+  margin-top: auto;
+  text-align: center;
+  box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.footer p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: lighter;
 }
