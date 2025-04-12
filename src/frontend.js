@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./App.css";
 
-const socket = io("http://localhost:5000"); // Connect to the backend WebSocket server
+const backendURL = "http://localhost:5000";
+const socket = io(backendURL); // Connect to the backend WebSocket server
 
 const App = () => {
   const [photos, setPhotos] = useState(() => {
@@ -12,18 +13,14 @@ const App = () => {
   const [message, setMessage] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
   const [newName, setNewName] = useState("");
-  const [loading, setLoading] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null); // For larger photo view
+  const [notification, setNotification] = useState(""); // For self-disappearing messages
 
   useEffect(() => {
     localStorage.setItem("photos", JSON.stringify(photos));
   }, [photos]);
 
   useEffect(() => {
-    socket.on("processingStarted", () => {
-      setLoading(true);
-    });
-
     socket.on("photoProcessed", (data) => {
       setPhotos((prevPhotos) => {
         if (!prevPhotos.includes(data.filename)) {
@@ -35,15 +32,20 @@ const App = () => {
 
     socket.on("processingComplete", (data) => {
       setMessage(data.message);
-      setLoading(false);
     });
 
     return () => {
-      socket.off("processingStarted");
       socket.off("photoProcessed");
       socket.off("processingComplete");
     };
   }, []);
+
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification("");
+    }, 3000); // 3 seconds delay
+  };
 
   const handleEdit = (index) => {
     setEditingIndex(index);
@@ -52,6 +54,14 @@ const App = () => {
 
   const handleSave = async (index) => {
     const oldName = photos[index];
+
+    // Avoid unnecessary API call if the old name equals the new name
+    if (oldName === newName) {
+      setEditingIndex(null); // Exit edit mode
+      setNewName("");
+      return;
+    }
+
     const updatedPhotos = [...photos];
     updatedPhotos[index] = newName;
     setPhotos(updatedPhotos); // Update the photo list state
@@ -59,7 +69,7 @@ const App = () => {
     setNewName("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/rename", {
+      const response = await fetch(`${backendURL}/api/rename`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,52 +78,78 @@ const App = () => {
       });
 
       const data = await response.json();
-      console.log(data.message);
+      showNotification(data.message);
 
       // Refresh thumbnails by re-fetching the photos from the backend
-      const updatedPhotoListResponse = await fetch(
-        "http://localhost:5000/api/photos"
-      );
+      const updatedPhotoListResponse = await fetch(`${backendURL}/api/photos`);
       const updatedPhotoList = await updatedPhotoListResponse.json();
       setPhotos(updatedPhotoList.photos);
     } catch (err) {
       console.error("Error renaming file:", err);
+      showNotification("שגיאה בשינוי שם הקובץ");
     }
   };
 
   const handleConfirm = async () => {
+    const userConfirmed = window.confirm("האם אתה בטוח שברצונך לשלוח?");
+    if (!userConfirmed) return;
+
     try {
-      setLoading(true);
-      const response = await fetch("http://localhost:5000/api/confirm", {
+      const response = await fetch(`${backendURL}/api/confirm`, {
         method: "POST",
       });
       const data = await response.json();
-      alert(data.message);
+      showNotification(data.message);
       setPhotos([]);
       localStorage.removeItem("photos");
       setMessage("");
-      setLoading(false);
     } catch (err) {
-      console.error("Error confirming:", err);
-      setLoading(false);
+      console.error("שגיאה בשליחה:", err);
+      showNotification("שגיאה בשליחה");
     }
   };
 
   const handleDelete = async () => {
+    const userConfirmed = window.confirm("האם אתה בטוח שברצונך למחוק הכל?");
+    if (!userConfirmed) return;
+
     try {
-      setLoading(true);
-      const response = await fetch("http://localhost:5000/api/delete", {
+      const response = await fetch(`${backendURL}/api/delete`, {
         method: "DELETE",
       });
       const data = await response.json();
-      alert(data.message);
+      showNotification(data.message);
       setPhotos([]);
       localStorage.removeItem("photos");
       setMessage("");
-      setLoading(false);
     } catch (err) {
-      console.error("Error deleting files:", err);
-      setLoading(false);
+      console.error("שגיאה במחיקת קבצים:", err);
+      showNotification("שגיאה במחיקת קבצים");
+    }
+  };
+
+  const handleDeletePhoto = async (photoName) => {
+    const userConfirmed = window.confirm(`האם אתה בטוח שברצונך למחוק את ${photoName}?`);
+    if (!userConfirmed) return;
+
+    try {
+      const response = await fetch(`${backendURL}/api/photo`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ photoName }),
+      });
+
+      const data = await response.json();
+      showNotification(data.message);
+
+      setPhotos((prevPhotos) =>
+        prevPhotos.filter((photo) => photo !== photoName)
+      );
+    } catch (err) {
+      console.error("שגיאה במחיקת תמונה:", err);
+      showNotification("שגיאה במחיקת תמונה");
     }
   };
 
@@ -171,21 +207,20 @@ const App = () => {
         <h1>סריקות</h1>
       </div>
 
-      {loading && (
-        <div className="loader">
-          <p>טוען... אנא המתן</p>
+      {notification && (
+        <div className="notification">
+          <p>{notification}</p>
         </div>
       )}
 
       <div className="photo-list">
         {photos.map((photo, index) => (
           <div key={index} className="photo-card">
-            {/* Always display the photo thumbnail */}
             <img
-              src={`http://localhost:5000/${photo}`}
-              alt={photo}
-              className="photo-thumbnail"
-              onClick={() => handlePhotoClick(photo)} // Open larger view
+              src="/path/to/default-icon.png"
+              alt="icon"
+              className="photo-icon"
+              onClick={() => handlePhotoClick(photo)}
             />
 
             {editingIndex === index ? (
@@ -201,6 +236,12 @@ const App = () => {
               <>
                 <p>{photo}</p>
                 <button onClick={() => handleEdit(index)}>ערוך</button>
+                <button
+                  className="delete-photo-button"
+                  onClick={() => handleDeletePhoto(photo)}
+                >
+                  מחק
+                </button>
               </>
             )}
           </div>
@@ -211,7 +252,7 @@ const App = () => {
         <div className="photo-viewer" onClick={closePhotoViewer}>
           <div className="photo-viewer-content">
             <img
-              src={`http://localhost:5000/${selectedPhoto}`}
+              src={`${backendURL}/${selectedPhoto}`}
               alt={selectedPhoto}
               className="large-photo"
             />
