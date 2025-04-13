@@ -26,37 +26,60 @@
   z-index: 1000;
 }
 
-/* Taskbar Styling */
 .taskbar {
-  background-color: #0056b3;
+  background: #0056b3;
   color: white;
-  padding: 15px 20px;
+  padding: 8px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.taskbar .info {
+  display: flex;
+  flex-direction: column;
 }
 
 .taskbar h1 {
   margin: 0;
   font-size: 2rem;
+  color: #ffdf6c;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 
-.taskbar nav a {
-  margin-left: 30px;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+.taskbar p {
+  margin: 5px 0 0;
   font-size: 1.2rem;
 }
 
-.taskbar nav a:hover {
-  text-decoration: underline;
-  color: #ffdf6c;
+.taskbar .actions button {
+  background-color: #ffffff;
+  color: #0056b3;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
 }
+
+.taskbar .actions button:hover {
+  background-color: #ffdf6c;
+  color: #004a99;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.taskbar .actions button:first-child {
+  margin-right: 10px;
+}
+
 
 /* Photo List Styling */
 .photo-list {
@@ -224,8 +247,8 @@
 }
 
 .button-group button {
-  padding: 15px 25px;
-  font-size: 1rem;
+  padding: 15px 70px;
+  font-size: 1.2rem;
   font-weight: bold;
   border-radius: 6px;
   border: none;

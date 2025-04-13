@@ -209,12 +209,14 @@ const App = () => {
   return (
     <div className="App">
       <div className="taskbar">
-        <nav>
-          <a href="#home">בית</a>
-          <a href="#about">{photos.length}</a>
-          <a href="#contact">צור קשר</a>
-        </nav>
-        <h1>סריקות</h1>
+        <div className="actions">
+          <button onClick={handleDelete}>🗑️ מחק הכל</button>
+          <button onClick={handlePrint}>🖨️ הדפס</button>
+        </div>
+        <div className="info">
+          <h1>📄 סריקות</h1>
+          <p>כמות סריקות: {photos.length}</p>
+        </div>
       </div>
 
       {notification && (
@@ -251,18 +253,18 @@ const App = () => {
               <div className="photo-details">
                 <p className="photo-name">{photo}</p>
                 <div className="photo-actions">
-                <button
-                  className="delete-photo-button"
-                  onClick={() => handleDeletePhoto(photo)}
-                >
-                  מחק
-                </button>
-                <button
-                  className="edit-button"
-                  onClick={() => handleEdit(index)}
-                >
-                  ערוך
-                </button>
+                  <button
+                    className="delete-photo-button"
+                    onClick={() => handleDeletePhoto(photo)}
+                  >
+                    מחק
+                  </button>
+                  <button
+                    className="edit-button"
+                    onClick={() => handleEdit(index)}
+                  >
+                    ערוך
+                  </button>
                 </div>
               </div>
             )}
@@ -288,12 +290,6 @@ const App = () => {
           <>
             <button className="confirm-button" onClick={handleConfirm}>
               שלח
-            </button>
-            <button className="print-button" onClick={handlePrint}>
-              הדפס
-            </button>
-            <button className="delete-button" onClick={handleDelete}>
-              מחק הכל
             </button>
           </>
         )}
