@@ -250,6 +250,7 @@ const App = () => {
             ) : (
               <div className="photo-details">
                 <p className="photo-name">{photo}</p>
+                <div className="photo-actions">
                 <button
                   className="edit-button"
                   onClick={() => handleEdit(index)}
@@ -262,6 +263,7 @@ const App = () => {
                 >
                   מחק
                 </button>
+                </div>
               </div>
             )}
           </div>

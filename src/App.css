@@ -5,7 +5,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #f3f8fe, #e2edf5); /* Soft gradient background */
+  background: linear-gradient(to bottom, #f3f8fe, #e2edf5);
+  /* Soft gradient background */
   color: #333;
 }
 
@@ -17,7 +18,8 @@
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
   color: #007bff;
-  background: rgba(255, 255, 255, 0.9); /* Slightly increased opacity */
+  background: rgba(255, 255, 255, 0.9);
+  /* Slightly increased opacity */
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
@@ -87,7 +89,7 @@
 
 .photo-card p {
   font-size: 1rem;
-  margin: 5px 0;
+  margin: 10px 0;
   color: #34495e;
 }
 
@@ -101,26 +103,15 @@
   font-size: 0.9rem;
 }
 
+.photo-actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 /* Edit Button Inside Photo Card */
-.photo-card button {
-  padding: 6px 10px;
-  background-color: #0056b3; /* Green color for edit action */
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.photo-card button:hover {
-  background-color: #00448d; /* Slightly darker green for hover effect */
-  transform: scale(1.03);
-}
-
-/* Delete Button Inside Photo Card */
-.delete-photo-button {
-  background-color: #ff4d4d; /* Bright red color to emphasize danger (delete action) */
+.photo-actions .edit-button {
+  background-color: #0056b3;
+  /* Bright red color to emphasize danger (delete action) */
   color: white;
   border: none;
   border-radius: 6px;
@@ -130,22 +121,64 @@
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.delete-photo-button:hover {
-  background-color: #d93636; /* Slightly darker red for hover effect */
+.photo-actions .edit-button button:hover {
+  background-color: #00448d;
+  /* Slightly darker green for hover effect */
+  transform: scale(1.03);
+}
+
+/* Edit Button Inside Photo Card */
+.save-button {
+  background-color: #0056b3;
+  /* Bright red color to emphasize danger (delete action) */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.save-button button:hover {
+  background-color: #00448d;
+  /* Slightly darker green for hover effect */
+  transform: scale(1.03);
+}
+
+/* Delete Button Inside Photo Card */
+.photo-actions .delete-photo-button {
+  background-color: #ff4d4d;
+  /* Bright red color to emphasize danger (delete action) */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.photo-actions .delete-photo-button:hover {
+  background-color: #d93636;
+  /* Slightly darker red for hover effect */
   transform: scale(1.03);
 }
 
 /* Photo Icon Styling */
 .photo-icon {
-  width: 60px; /* Increased icon size */
+  width: 60px;
+  /* Increased icon size */
   height: 60px;
-  margin: 0 auto; /* Center the icon inside the photo-card */
+  margin: 0 auto;
+  /* Center the icon inside the photo-card */
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 }
 
 .photo-icon:hover {
-  transform: scale(1.2); /* Slight zoom effect on hover */
+  transform: scale(1.2);
+  /* Slight zoom effect on hover */
 }
 
 /* Photo Viewer Modal Styling */
@@ -168,7 +201,8 @@
 }
 
 .large-photo {
-  max-width: 60%; /* Adjusted for larger screens */
+  max-width: 60%;
+  /* Adjusted for larger screens */
   max-height: 60%;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
@@ -261,14 +295,17 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   font-size: 16px;
   z-index: 1000;
-  opacity: 1; /* Ensure it starts fully visible */
-  transition: opacity 0.5s ease-in-out; /* Smooth fade-out effect */
+  opacity: 1;
+  /* Ensure it starts fully visible */
+  transition: opacity 0.5s ease-in-out;
+  /* Smooth fade-out effect */
 }
 
 @keyframes fadeOut {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
