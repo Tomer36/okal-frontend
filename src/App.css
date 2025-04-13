@@ -6,7 +6,7 @@
   flex-direction: column;
   min-height: 100vh;
   background: linear-gradient(to bottom, #f3f8fe, #e2edf5); /* Soft gradient background */
-  color: #333; /* Neutral text color */
+  color: #333;
 }
 
 /* Loader Styling */
@@ -17,7 +17,7 @@
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
   color: #007bff;
-  background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  background: rgba(255, 255, 255, 0.9); /* Slightly increased opacity */
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
@@ -62,17 +62,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  padding: 15px;
-}
-
-/* Photo Thumbnail Styling */
-.photo-thumbnail {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  cursor: pointer; /* Make it clear that thumbnails are clickable */
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 /* Photo Card Styling */
@@ -84,9 +74,9 @@
   width: 200px;
   padding: 15px;
   text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
-  flex-direction: column; /* Stack content vertically */
+  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -96,7 +86,7 @@
 }
 
 .photo-card p {
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 5px 0;
   color: #34495e;
 }
@@ -107,25 +97,56 @@
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  width: 100%;
   text-align: center;
   font-size: 0.9rem;
 }
 
+/* Edit Button Inside Photo Card */
 .photo-card button {
   padding: 6px 10px;
-  background-color: #4caf50;
+  background-color: #4caf50; /* Green color for edit action */
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .photo-card button:hover {
-  background-color: #45a049;
+  background-color: #45a049; /* Slightly darker green for hover effect */
   transform: scale(1.03);
+}
+
+/* Delete Button Inside Photo Card */
+.delete-photo-button {
+  background-color: #ff4d4d; /* Bright red color to emphasize danger (delete action) */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.delete-photo-button:hover {
+  background-color: #d93636; /* Slightly darker red for hover effect */
+  transform: scale(1.03);
+}
+
+/* Photo Icon Styling */
+.photo-icon {
+  width: 60px; /* Increased icon size */
+  height: 60px;
+  margin: 0 auto; /* Center the icon inside the photo-card */
+  cursor: pointer;
+  filter: grayscale(100%); /* Optional: Make the icon grayscale for aesthetics */
+  transition: transform 0.3s ease-in-out;
+}
+
+.photo-icon:hover {
+  transform: scale(1.2); /* Slight zoom effect on hover */
 }
 
 /* Photo Viewer Modal Styling */
@@ -135,12 +156,12 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8); /* Black semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2000;
-  cursor: pointer; /* Close modal when clicking on background */
+  cursor: pointer;
 }
 
 .photo-viewer-content {
@@ -148,8 +169,8 @@
 }
 
 .large-photo {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 80%; /* Adjusted for larger screens */
+  max-height: 80%;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
 }
@@ -159,7 +180,8 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .button-group button {
@@ -169,7 +191,7 @@
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 /* Confirm Button Styling */
@@ -194,7 +216,7 @@
   transform: scale(1.05);
 }
 
-/* Delete Button Styling */
+/* Delete All Button Styling */
 .button-group .delete-button {
   background-color: #ff4d4d;
   color: white;
@@ -202,7 +224,7 @@
   border-radius: 6px;
   padding: 8px 15px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .button-group .delete-button:hover {
@@ -224,4 +246,28 @@
   margin: 0;
   font-size: 1rem;
   font-weight: lighter;
+}
+
+.notification {
+  /* position: fixed; */
+  top: 10px;
+  right: 10px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  z-index: 1000;
+  opacity: 1; /* Ensure it starts fully visible */
+  transition: opacity 0.5s ease-in-out; /* Smooth fade-out effect */
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
