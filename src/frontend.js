@@ -211,7 +211,7 @@ const App = () => {
       <div className="taskbar">
         <nav>
           <a href="#home">בית</a>
-          <a href="#about">אודות</a>
+          <a href="#about">{photos.length}</a>
           <a href="#contact">צור קשר</a>
         </nav>
         <h1>סריקות</h1>
@@ -252,16 +252,16 @@ const App = () => {
                 <p className="photo-name">{photo}</p>
                 <div className="photo-actions">
                 <button
-                  className="edit-button"
-                  onClick={() => handleEdit(index)}
-                >
-                  ערוך
-                </button>
-                <button
                   className="delete-photo-button"
                   onClick={() => handleDeletePhoto(photo)}
                 >
                   מחק
+                </button>
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(index)}
+                >
+                  ערוך
                 </button>
                 </div>
               </div>

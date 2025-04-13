@@ -84,13 +84,16 @@
 
 .photo-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .photo-card p {
   font-size: 1rem;
   margin: 10px 0;
   color: #34495e;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 6px;
+  border-radius: 5px;
 }
 
 .photo-card input {
@@ -115,7 +118,7 @@
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 5px 10px;
+  padding: 8px 15px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -134,7 +137,7 @@
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 5px 10px;
+  padding: 8px 15px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -153,7 +156,7 @@
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 5px 10px;
+  padding: 8px 15px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -167,9 +170,9 @@
 
 /* Photo Icon Styling */
 .photo-icon {
-  width: 60px;
+  width: 45px;
   /* Increased icon size */
-  height: 60px;
+  height: 45px;
   margin: 0 auto;
   /* Center the icon inside the photo-card */
   cursor: pointer;
@@ -221,7 +224,7 @@
 }
 
 .button-group button {
-  padding: 10px 20px;
+  padding: 15px 25px;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 6px;
