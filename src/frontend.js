@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./App.css";
+import searchIcon from "../src/assests/search.png";
 
-// const backendURL = "http://localhost:5000";
-const backendURL = "http://192.168.2.88:9000";
+const backendURL = "http://localhost:5000";
+// const backendURL = "http://192.168.2.88:9000";
 const socket = io(backendURL); // Connect to the backend WebSocket server
 
 const App = () => {
@@ -130,7 +131,9 @@ const App = () => {
   };
 
   const handleDeletePhoto = async (photoName) => {
-    const userConfirmed = window.confirm(`האם אתה בטוח שברצונך למחוק את ${photoName}?`);
+    const userConfirmed = window.confirm(
+      `האם אתה בטוח שברצונך למחוק את ${photoName}?`
+    );
     if (!userConfirmed) return;
 
     try {
@@ -182,16 +185,16 @@ const App = () => {
       </html>
     `);
     newWindow.document.close();
-  
+
     const mediaQueryList = newWindow.matchMedia("print");
-  
+
     mediaQueryList.addEventListener("change", (e) => {
       if (!e.matches) {
         // Print dialog has closed
         newWindow.close();
       }
     });
-  
+
     newWindow.print();
   };
 
@@ -224,37 +227,46 @@ const App = () => {
         {photos.map((photo, index) => (
           <div key={index} className="photo-card">
             <img
-              src="/path/to/default-icon.png"
+              src={searchIcon}
               alt="icon"
               className="photo-icon"
               onClick={() => handlePhotoClick(photo)}
             />
-
             {editingIndex === index ? (
-              <>
+              <div className="photo-edit">
                 <input
                   type="text"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
+                  className="photo-input"
                 />
-                <button onClick={() => handleSave(index)}>שמור</button>
-              </>
+                <button
+                  className="save-button"
+                  onClick={() => handleSave(index)}
+                >
+                  שמור
+                </button>
+              </div>
             ) : (
-              <>
-                <p>{photo}</p>
-                <button onClick={() => handleEdit(index)}>ערוך</button>
+              <div className="photo-details">
+                <p className="photo-name">{photo}</p>
+                <button
+                  className="edit-button"
+                  onClick={() => handleEdit(index)}
+                >
+                  ערוך
+                </button>
                 <button
                   className="delete-photo-button"
                   onClick={() => handleDeletePhoto(photo)}
                 >
                   מחק
                 </button>
-              </>
+              </div>
             )}
           </div>
         ))}
       </div>
-
       {selectedPhoto && (
         <div className="photo-viewer" onClick={closePhotoViewer}>
           <div className="photo-viewer-content">
