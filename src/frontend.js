@@ -214,8 +214,8 @@ const App = () => {
           <button onClick={handlePrint}>🖨️ הדפס</button>
         </div>
         <div className="info">
-          <h1>📄 סריקות</h1>
-          <p>כמות סריקות: {photos.length}</p>
+        <h1>סריקות📄</h1>
+        <p><b>{photos.length}</b></p>
         </div>
       </div>
 
