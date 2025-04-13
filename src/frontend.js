@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./App.css";
 
-const backendURL = "http://localhost:5000";
+// const backendURL = "http://localhost:5000";
+const backendURL = "http://192.168.2.88:9000";
 const socket = io(backendURL); // Connect to the backend WebSocket server
 
 const App = () => {
@@ -154,7 +155,6 @@ const App = () => {
   };
 
   const handlePrint = () => {
-    const printableContent = photos.join("\n");
     const newWindow = window.open("", "_blank");
     newWindow.document.write(`
       <html>
@@ -182,10 +182,17 @@ const App = () => {
       </html>
     `);
     newWindow.document.close();
+  
+    const mediaQueryList = newWindow.matchMedia("print");
+  
+    mediaQueryList.addEventListener("change", (e) => {
+      if (!e.matches) {
+        // Print dialog has closed
+        newWindow.close();
+      }
+    });
+  
     newWindow.print();
-    newWindow.onafterprint = () => {
-      newWindow.close();
-    };
   };
 
   const handlePhotoClick = (photo) => {
