@@ -175,12 +175,19 @@ const App = () => {
             }
             p {
               margin: 10px 0;
+              font-size:20px;
+            }
+            .total {
+            font-size:22px;
+            text-align: center;
+            direction: rtl;
             }
           </style>
         </head>
         <body>
           <h1>רשימת סריקות</h1>
           ${photos.map((photo) => `<p>${photo}</p>`).join("")}
+          <div class=total>ס"כ סריקות: <b>${photos.length}</b></div>
         </body>
       </html>
     `);
@@ -214,8 +221,10 @@ const App = () => {
           <button onClick={handlePrint}>🖨️ הדפס</button>
         </div>
         <div className="info">
-        <h1>סריקות📄</h1>
-        <p><b>{photos.length}</b></p>
+          <h1>סריקות📄</h1>
+          <p>
+            <b>{photos.length}</b>
+          </p>
         </div>
       </div>
 

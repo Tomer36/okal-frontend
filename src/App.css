@@ -29,7 +29,7 @@
 .taskbar {
   background: #0056b3;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -46,7 +46,7 @@
 
 .taskbar h1 {
   margin: 0;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   color: #ffdf6c;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
@@ -99,8 +99,8 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 200px;
-  padding: 15px;
+  width: 140px;
+  padding: 12px;
   text-align: center;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
@@ -130,6 +130,7 @@
   border-radius: 6px;
   text-align: center;
   font-size: 0.9rem;
+  width: 112px;
 }
 
 .photo-actions {
@@ -246,7 +247,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 10px;
 }
 
 .button-group button {
