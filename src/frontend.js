@@ -3,8 +3,8 @@ import { io } from "socket.io-client";
 import "./App.css";
 import searchIcon from "../src/assests/search.png";
 
-const backendURL = "http://localhost:5000";
-// const backendURL = "http://192.168.2.88:9000";
+// const backendURL = "http://localhost:5000";
+const backendURL = "http://192.168.2.88:9000";
 const socket = io(backendURL); // Connect to the backend WebSocket server
 
 const App = () => {
