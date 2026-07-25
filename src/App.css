@@ -1,342 +1,424 @@
-/* General App Styling */
-.App {
-  text-align: center;
-  font-family: "Roboto", Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #f3f8fe, #e2edf5);
-  /* Soft gradient background */
-  color: #333;
+:root {
+  --primary: #1976d2;
+  --primary-dark: #1565c0;
+  --navy: #243b53;
+  --muted: #627d98;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --line: #dfe7f1;
+  --line-strong: #c8d5e5;
+  --danger: #d14343;
+  --danger-dark: #b83232;
+  --success: #27864b;
+  --success-dark: #20723f;
+  --shadow-sm: 0 1px 4px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
-/* Loader Styling */
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  color: var(--navy);
+  background: linear-gradient(160deg, #eef2f7 0%, #e8edf5 100%);
+}
+
 .loader {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.5rem;
-  color: #007bff;
-  background: rgba(255, 255, 255, 0.9);
-  /* Slightly increased opacity */
-  padding: 20px;
+  z-index: 2100;
+  padding: 16px 22px;
+  border: 1px solid rgba(16, 42, 67, 0.1);
   border-radius: 12px;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  color: var(--primary-dark);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-md);
+  font-size: 1rem;
+  font-weight: 700;
+  transform: translate(-50%, -50%);
 }
 
+/* Header */
 .taskbar {
-  background: #0056b3;
-  color: white;
-  padding: 10px 30px;
+  min-height: 58px;
+  padding: 9px clamp(16px, 4vw, 48px);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  background: linear-gradient(135deg, #1565c0 0%, #1976d2 60%, #1e88e5 100%);
+  box-shadow: 0 2px 10px rgba(21, 101, 192, 0.25);
 }
 
 .taskbar .info {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .taskbar h1 {
   margin: 0;
-  font-size: 1.5rem;
-  color: #ffdf6c;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.taskbar p {
-  margin: 5px 0 0;
-  font-size: 1.5rem;
-  background-color: #ffdf6c;
-  color: #0056b3;
-  border-radius: 50px;
+.taskbar .info p {
+  min-width: 34px;
+  height: 28px;
+  margin: 0;
+  padding: 0 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 0.78rem;
+}
+
+.taskbar .actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .taskbar .actions button {
-  background-color: #ffffff;
-  color: #0056b3;
-  border: none;
-  padding: 8px 15px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  min-height: 36px;
+  padding: 7px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.13);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
-  border-radius: 5px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in-out;
+  transition: background 0.15s, border-color 0.15s;
 }
 
 .taskbar .actions button:hover {
-  background-color: #ffdf6c;
-  color: #004a99;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.23);
 }
 
-.taskbar .actions button:first-child {
-  margin-right: 10px;
+/* Notifications */
+.notification {
+  width: min(1400px, calc(100% - 32px));
+  margin: 14px auto 0;
+  padding: 10px 14px;
+  border: 1px solid #b8d8f7;
+  border-radius: 9px;
+  color: var(--primary-dark);
+  background: #eef6ff;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.82rem;
+  animation: slideDown 0.2s ease-out;
 }
 
+.notification p {
+  margin: 0;
+}
 
-/* Photo List Styling */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Review cards */
 .photo-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  width: min(1400px, calc(100% - 32px));
+  margin: 16px auto 0;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  align-items: stretch;
+  gap: 12px;
+  border: 1px solid rgba(16, 42, 67, 0.09);
+  border-radius: 14px;
+  background: var(--surface-soft);
+  box-shadow: var(--shadow-md);
 }
 
-/* Photo Card Styling */
+.photo-list:empty {
+  display: none;
+}
+
 .photo-card {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 140px;
+  min-width: 0;
   padding: 12px;
-  text-align: center;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid #e0e7f0;
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 
 .photo-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-color: #adc9e9;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
+  transform: translateY(-2px);
 }
 
-.photo-card p {
-  font-size: 1rem;
-  margin: 10px 0;
-  color: #34495e;
-  background: rgba(0, 0, 0, 0.05);
-  padding: 6px;
-  border-radius: 5px;
-}
-
-.photo-card input {
-  margin-top: 5px;
-  margin-bottom: 10px;
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 0.9rem;
-  width: 112px;
-}
-
-.photo-actions {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-/* Edit Button Inside Photo Card */
-.photo-actions .edit-button {
-  background-color: #0056b3;
-  /* Bright red color to emphasize danger (delete action) */
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 15px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.photo-actions .edit-button button:hover {
-  background-color: #00448d;
-  /* Slightly darker green for hover effect */
-  transform: scale(1.03);
-}
-
-/* Edit Button Inside Photo Card */
-.save-button {
-  background-color: #0056b3;
-  /* Bright red color to emphasize danger (delete action) */
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 15px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.save-button button:hover {
-  background-color: #00448d;
-  /* Slightly darker green for hover effect */
-  transform: scale(1.03);
-}
-
-/* Delete Button Inside Photo Card */
-.photo-actions .delete-photo-button {
-  background-color: #ff4d4d;
-  /* Bright red color to emphasize danger (delete action) */
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 15px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.photo-actions .delete-photo-button:hover {
-  background-color: #d93636;
-  /* Slightly darker red for hover effect */
-  transform: scale(1.03);
-}
-
-/* Photo Icon Styling */
 .photo-icon {
-  width: 45px;
-  /* Increased icon size */
-  height: 45px;
-  margin: 0 auto;
-  /* Center the icon inside the photo-card */
+  width: 52px;
+  height: 52px;
+  margin: 5px auto 10px;
+  padding: 8px;
+  border-radius: 10px;
+  background: #eef5fd;
+  object-fit: contain;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: background 0.15s, transform 0.15s;
 }
 
 .photo-icon:hover {
-  transform: scale(1.2);
-  /* Slight zoom effect on hover */
+  background: #e1effd;
+  transform: scale(1.05);
 }
 
-/* Photo Viewer Modal Styling */
-.photo-viewer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
+.photo-details,
+.photo-edit {
+  min-width: 0;
+}
+
+.photo-name {
+  margin: 0 0 10px;
+  padding: 8px;
+  overflow: hidden;
+  border-radius: 7px;
+  color: #2d4a6b;
+  background: #f6f8fb;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photo-card input {
+  width: 100%;
+  height: 36px;
+  margin: 0 0 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  outline: none;
+  color: var(--navy);
+  background: #fff;
+  font: inherit;
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+.photo-card input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.11);
+}
+
+.photo-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.photo-actions button,
+.save-button {
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: #fff;
+  background: var(--primary);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
 }
 
-.photo-viewer-content {
-  position: relative;
+.photo-actions .edit-button:hover,
+.save-button:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 3px 9px rgba(25, 118, 210, 0.2);
 }
 
-.large-photo {
-  max-width: 60%;
-  /* Adjusted for larger screens */
-  max-height: 60%;
-  border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+.photo-actions .delete-photo-button {
+  background: var(--danger);
 }
 
-/* Button Group Styling */
+.photo-actions .delete-photo-button:hover {
+  background: var(--danger-dark);
+}
+
+/* Main actions */
 .button-group {
+  width: min(1400px, calc(100% - 32px));
+  min-height: 68px;
+  margin: 16px auto;
+  padding: 10px 16px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.05);
-  gap: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  border: 1px solid rgba(16, 42, 67, 0.09);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-sm);
+}
+
+.button-group:empty {
+  display: none;
 }
 
 .button-group button {
-  padding: 15px 70px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 6px;
-  border: none;
+  min-width: 220px;
+  min-height: 40px;
+  padding: 8px 22px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #fff;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transition: background 0.15s, box-shadow 0.15s;
 }
 
-/* Confirm Button Styling */
 .button-group .confirm-button {
-  background-color: #4caf50;
-  color: white;
+  background: var(--success);
 }
 
 .button-group .confirm-button:hover {
-  background-color: #409242;
-  transform: scale(1.05);
+  background: var(--success-dark);
+  box-shadow: 0 3px 9px rgba(39, 134, 75, 0.22);
 }
 
-/* Print Button Styling */
-.button-group .print-button {
-  background-color: #ffdf6c;
-  color: #333;
-}
-
-.button-group .print-button:hover {
-  background-color: #ffc344;
-  transform: scale(1.05);
-}
-
-/* Delete All Button Styling */
 .button-group .delete-button {
-  background-color: #ff4d4d;
-  color: white;
-  font-weight: bold;
-  border-radius: 6px;
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  background: var(--danger);
 }
 
-.button-group .delete-button:hover {
-  background-color: #d93636;
-  transform: scale(1.05);
+.button-group .print-button {
+  background: var(--primary);
 }
 
-/* Footer Styling */
-.footer {
-  background-color: #333;
-  color: white;
-  padding: 15px 0;
-  margin-top: auto;
+.App > h2 {
+  width: min(1400px, calc(100% - 32px));
+  margin: 14px auto 0;
+  color: var(--muted);
+  font-size: 0.9rem;
   text-align: center;
-  box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Full image viewer */
+.photo-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(9, 20, 33, 0.86);
+  backdrop-filter: blur(5px);
+  cursor: zoom-out;
+}
+
+.photo-viewer-content {
+  max-width: 94vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.large-photo {
+  display: block;
+  max-width: 88vw;
+  max-height: 84vh;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  padding: 13px 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  background: var(--surface-soft);
+  text-align: center;
 }
 
 .footer p {
   margin: 0;
-  font-size: 1rem;
-  font-weight: lighter;
+  font-size: 0.72rem;
 }
 
-.notification {
-  /* position: fixed; */
-  top: 10px;
-  right: 10px;
-  background-color: #007bff;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
-  z-index: 1000;
-  opacity: 1;
-  /* Ensure it starts fully visible */
-  transition: opacity 0.5s ease-in-out;
-  /* Smooth fade-out effect */
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
+@media (max-width: 620px) {
+  .taskbar {
+    min-height: 52px;
+    padding: 8px 12px;
+    flex-wrap: wrap;
   }
 
-  100% {
-    opacity: 0;
+  .taskbar .actions {
+    gap: 5px;
+  }
+
+  .taskbar .actions button {
+    padding-inline: 9px;
+    font-size: 0.72rem;
+  }
+
+  .photo-list,
+  .notification,
+  .button-group,
+  .App > h2 {
+    width: calc(100% - 16px);
+  }
+
+  .photo-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .button-group button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .taskbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .taskbar .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .photo-list {
+    grid-template-columns: 1fr;
   }
 }

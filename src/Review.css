@@ -1,0 +1,476 @@
+.App {
+  --review-blue: #1976d2;
+  --review-blue-dark: #145cae;
+  --review-ink: #18324b;
+  --review-muted: #6b7f93;
+  --review-line: #dce5ef;
+  min-height: 100vh;
+  direction: rtl;
+  color: var(--review-ink);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(25, 118, 210, 0.09), transparent 26rem),
+    #edf2f7;
+}
+
+.taskbar {
+  min-height: 66px;
+  padding: 0 clamp(16px, 4vw, 48px);
+  background: linear-gradient(120deg, #1259ad, var(--review-blue) 58%, #258ce5);
+  box-shadow: 0 3px 16px rgba(21, 101, 192, 0.24);
+}
+
+.taskbar-inner {
+  width: min(1380px, 100%);
+  min-height: 66px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.brand-copy > span {
+  direction: ltr;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-align: right;
+}
+
+.taskbar .brand-copy h1 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.taskbar .actions {
+  display: flex;
+  gap: 8px;
+}
+
+.taskbar .actions button {
+  min-height: 36px;
+  margin: 0;
+  padding: 7px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.78rem;
+  font-weight: 700;
+  box-shadow: none;
+  transform: none;
+}
+
+.taskbar .actions button:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: none;
+  transform: none;
+}
+
+.taskbar .actions .danger-action:hover {
+  background: rgba(155, 25, 25, 0.32);
+}
+
+.notification {
+  width: min(1380px, calc(100% - 32px));
+  margin: 14px auto -2px;
+  padding: 11px 15px;
+  border: 1px solid #b9d9f7;
+  border-radius: 10px;
+  color: #155d9f;
+  background: #f0f7ff;
+  box-shadow: 0 3px 12px rgba(25, 118, 210, 0.07);
+  font-size: 0.82rem;
+}
+
+.notification p {
+  margin: 0;
+}
+
+.review-workspace {
+  width: min(1380px, calc(100% - 32px));
+  margin: 18px auto 28px;
+  flex: 1;
+}
+
+.review-panel {
+  overflow: hidden;
+  border: 1px solid rgba(24, 50, 75, 0.09);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(32, 63, 93, 0.08);
+}
+
+.panel-heading {
+  min-height: 76px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #e9eef4;
+}
+
+.panel-heading h2 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.panel-heading p {
+  margin: 0;
+  color: var(--review-muted);
+  font-size: 0.76rem;
+}
+
+.document-count {
+  min-width: 90px;
+  padding: 7px 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #cfe1f4;
+  border-radius: 9px;
+  color: var(--review-blue-dark);
+  background: #f0f7ff;
+}
+
+.document-count strong {
+  font-size: 1.05rem;
+}
+
+.document-count span {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.review-panel .photo-list {
+  width: 100%;
+  margin: 0;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 13px;
+  border: 0;
+  border-radius: 0;
+  background: #f7f9fc;
+  box-shadow: none;
+}
+
+.review-panel .photo-card {
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--review-line);
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(33, 60, 86, 0.04);
+  transform: none;
+}
+
+.review-panel .photo-card:hover {
+  border-color: #adc9e9;
+  box-shadow: 0 9px 20px rgba(33, 60, 86, 0.1);
+  transform: translateY(-2px);
+}
+
+.photo-preview {
+  width: 100%;
+  height: 190px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border: 0;
+  border-bottom: 1px solid #edf1f5;
+  color: var(--review-blue-dark);
+  background: linear-gradient(145deg, #f9fbfd, #eff5fb);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.photo-preview:hover {
+  background: #eaf2fa;
+}
+
+.review-panel .photo-icon {
+  width: 100%;
+  height: 174px;
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+  background: #fff;
+  object-fit: contain;
+  transform: none;
+}
+
+.review-panel .photo-details,
+.review-panel .photo-edit {
+  padding: 11px;
+}
+
+.review-panel .photo-name {
+  margin: 0 0 10px;
+  padding: 0;
+  overflow: hidden;
+  color: #294761;
+  background: transparent;
+  font-size: 0.79rem;
+  font-weight: 700;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.photo-edit label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--review-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.review-panel .photo-input {
+  width: 100%;
+  height: 38px;
+  margin: 0 0 8px;
+  padding: 7px 10px;
+  border: 1px solid #c5d3e2;
+  border-radius: 8px;
+  outline: 0;
+  color: var(--review-ink);
+  background: #fff;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.review-panel .photo-input:focus {
+  border-color: var(--review-blue);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.11);
+}
+
+.review-panel .photo-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.review-panel .photo-actions button,
+.review-panel .save-button {
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: #fff;
+  background: var(--review-blue);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.review-panel .photo-actions button:hover,
+.review-panel .save-button:hover {
+  background: var(--review-blue-dark);
+  transform: none;
+}
+
+.review-panel .photo-actions .delete-photo-button {
+  color: #b63a3a;
+  border-color: #f0cccc;
+  background: #fff5f5;
+}
+
+.review-panel .photo-actions .delete-photo-button:hover {
+  color: #fff;
+  border-color: #d34a4a;
+  background: #d34a4a;
+}
+
+.empty-state {
+  min-height: 340px;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f7f9fc;
+  text-align: center;
+}
+
+.empty-state > span {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 15px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #cbe1d3;
+  border-radius: 50%;
+  color: #218a54;
+  background: #eef9f2;
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.empty-state h3 {
+  margin: 0 0 7px;
+  font-size: 0.95rem;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--review-muted);
+  font-size: 0.78rem;
+}
+
+.panel-footer {
+  min-height: 70px;
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #e5ebf2;
+  background: #fff;
+}
+
+.panel-footer h3 {
+  margin: 0;
+  color: var(--review-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.panel-footer .confirm-button {
+  min-width: 230px;
+  min-height: 42px;
+  padding: 8px 20px;
+  border: 1px solid #1f7d4c;
+  border-radius: 8px;
+  color: #fff;
+  background: linear-gradient(135deg, #238c56, #2a9a61);
+  box-shadow: 0 4px 12px rgba(33, 138, 84, 0.18);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.panel-footer .confirm-button:hover {
+  background: linear-gradient(135deg, #1d7748, #238c56);
+  box-shadow: 0 5px 15px rgba(33, 138, 84, 0.26);
+  transform: none;
+}
+
+.photo-viewer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.photo-viewer-content .large-photo {
+  max-width: 88vw;
+  max-height: 82vh;
+}
+
+.photo-viewer-content span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 680px) {
+  .taskbar,
+  .taskbar-inner {
+    min-height: 58px;
+  }
+
+  .brand-copy > span,
+  .panel-heading p {
+    display: none;
+  }
+
+  .taskbar .brand-copy h1 {
+    font-size: 0.95rem;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .taskbar .actions button {
+    padding-inline: 9px;
+    font-size: 0.7rem;
+  }
+
+  .review-workspace,
+  .notification {
+    width: calc(100% - 16px);
+  }
+
+  .panel-heading {
+    padding: 13px;
+  }
+
+  .review-panel .photo-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .panel-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .panel-footer .confirm-button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .taskbar-inner {
+    padding-block: 8px;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .taskbar .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .review-panel .photo-list {
+    grid-template-columns: 1fr;
+  }
+}

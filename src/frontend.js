@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./App.css";
-import searchIcon from "../src/assests/search.png";
+import "./Review.css";
 
 // const backendURL = "http://localhost:5000";
 const backendURL = "http://192.168.2.88:9000";
@@ -215,18 +215,25 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="taskbar">
-        <div className="actions">
-          <button onClick={handleDelete}>🗑️ מחק הכל</button>
-          <button onClick={handlePrint}>🖨️ הדפס</button>
+      <header className="taskbar">
+        <div className="taskbar-inner">
+          <div className="brand">
+            <span className="brand-mark" aria-hidden="true">📄</span>
+            <div className="brand-copy">
+              <span>OKAL DOCUMENTS</span>
+              <h1>בדיקת תעודות משלוח</h1>
+            </div>
+          </div>
+          <div className="actions">
+            <button className="secondary-action" onClick={handlePrint}>
+              🖨️ הדפס
+            </button>
+            <button className="danger-action" onClick={handleDelete}>
+              🗑️ מחק הכל
+            </button>
+          </div>
         </div>
-        <div className="info">
-          <h1>סריקות📄</h1>
-          <p>
-            <b>{photos.length}</b>
-          </p>
-        </div>
-      </div>
+      </header>
 
       {notification && (
         <div className="notification">
@@ -234,52 +241,87 @@ const App = () => {
         </div>
       )}
 
-      <div className="photo-list">
-        {photos.map((photo, index) => (
-          <div key={index} className="photo-card">
-            <img
-              src={searchIcon}
-              alt="icon"
-              className="photo-icon"
-              onClick={() => handlePhotoClick(photo)}
-            />
-            {editingIndex === index ? (
-              <div className="photo-edit">
-                <input
-                  type="text"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  className="photo-input"
-                />
-                <button
-                  className="save-button"
-                  onClick={() => handleSave(index)}
-                >
-                  שמור
-                </button>
-              </div>
-            ) : (
-              <div className="photo-details">
-                <p className="photo-name">{photo}</p>
-                <div className="photo-actions">
-                  <button
-                    className="delete-photo-button"
-                    onClick={() => handleDeletePhoto(photo)}
-                  >
-                    מחק
-                  </button>
-                  <button
-                    className="edit-button"
-                    onClick={() => handleEdit(index)}
-                  >
-                    ערוך
-                  </button>
-                </div>
-              </div>
-            )}
+      <main className="review-workspace">
+        <section className="review-panel">
+          <div className="panel-heading">
+            <div>
+              <h2>מסמכים ממתינים לבדיקה</h2>
+            </div>
+            <div className="document-count">
+              <strong>{photos.length}</strong>
+              <span>מסמכים</span>
+            </div>
           </div>
-        ))}
-      </div>
+
+          {photos.length === 0 ? (
+            <div className="empty-state">
+              <span aria-hidden="true">✓</span>
+              <h3>אין מסמכים שממתינים לבדיקה</h3>
+              <p>מסמכים חדשים יופיעו כאן לאחר הסריקה</p>
+            </div>
+          ) : (
+            <div className="photo-list">
+              {photos.map((photo, index) => (
+                <article key={index} className="photo-card">
+                  <button
+                    className="photo-preview"
+                    onClick={() => handlePhotoClick(photo)}
+                    title="פתח תצוגה מקדימה"
+                  >
+                    <img
+                      src={`${backendURL}/${photo}`}
+                      alt={photo}
+                      className="photo-icon"
+                    />
+                  </button>
+                  {editingIndex === index ? (
+                    <div className="photo-edit">
+                      <label htmlFor={`photo-${index}`}>מספר מסמך</label>
+                      <input
+                        id={`photo-${index}`}
+                        type="text"
+                        value={newName}
+                        onChange={(e) => setNewName(e.target.value)}
+                        className="photo-input"
+                      />
+                      <button className="save-button" onClick={() => handleSave(index)}>
+                        שמור שינויים
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="photo-details">
+                      <p className="photo-name" title={photo}>{photo}</p>
+                      <div className="photo-actions">
+                        <button className="edit-button" onClick={() => handleEdit(index)}>
+                          ערוך
+                        </button>
+                        <button
+                          className="delete-photo-button"
+                          onClick={() => handleDeletePhoto(photo)}
+                        >
+                          מחק
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
+
+          {(message || photos.length > 0) && (
+            <div className="panel-footer">
+              <h3>{message}</h3>
+              {photos.length > 0 && (
+                <button className="confirm-button" onClick={handleConfirm}>
+                  אישור ושמירת המסמכים
+                </button>
+              )}
+            </div>
+          )}
+        </section>
+      </main>
+
       {selectedPhoto && (
         <div className="photo-viewer" onClick={closePhotoViewer}>
           <div className="photo-viewer-content">
@@ -288,21 +330,10 @@ const App = () => {
               alt={selectedPhoto}
               className="large-photo"
             />
+            <span>לחץ בכל מקום לסגירה</span>
           </div>
         </div>
       )}
-
-      <h2>{message}</h2>
-
-      <div className="button-group">
-        {photos.length > 0 && (
-          <>
-            <button className="confirm-button" onClick={handleConfirm}>
-              שלח
-            </button>
-          </>
-        )}
-      </div>
 
       <footer className="footer">
         <p>© 2025 סריקות OKAL. כל הזכויות שמורות.</p>
